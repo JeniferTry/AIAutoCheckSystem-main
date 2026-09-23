@@ -1,0 +1,19 @@
+1/ 
+import torch
+print(torch.version.cuda)
+print(torch.cuda.is_available())
+exit()
+
+
+
+
+安装unslothcurl -fs
+ curl -fsSL https://unsloth.ai/install.sh|sh    X
+mkdir -p /data/model
+wget -P /home/yxkj/wt_model   https://mirror.ghproxy.com/https://github.com/unsloth/unsloth/releases/latest/download/unsloth-cu128-torch210-linux-x86_64.whl    X
+
+pip install unsloth unsloth_zoo	  √
+python3 -c "import unsloth; print('✅ Unsloth 已安装，版本：', unsloth.__version__)"
+
+
+2/ 

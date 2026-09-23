@@ -1,0 +1,29 @@
+1、检查各种包是否已成功安装
+D:\ProgramData\anaconda3\python.exe -c "import fitz; print('PyMuPDF OK:', fitz.version); import PIL; print('Pillow OK:', PIL.__version__); import tkinter; print('tkinter OK'); import requests; print('requests OK:', requests.__version__)"
+
+2、检查编译是否通过
+D:\ProgramData\anaconda3\python.exe -c "import py_compile; py_compile.compile(r'e:\WORK\9.AI数字化检测系统\1.源代码\标注\ClientFileCollections\智能图纸标注系统.py', doraise=True); print('语法检查通过')"
+
+3、测试模块导入是否成功
+D:\ProgramData\anaconda3\python.exe -c "
+import sys
+sys.path.insert(0, r'e:\WORK\9.AI数字化检测系统\1.源代码\标注\ClientFileCollections')
+from 智能图纸标注系统 import SmartDrawingAnnotator, Marker, API_URL, API_HEADERS
+print('导入成功!')
+print('API URL:', API_URL[:50] + '...')
+"
+
+4、
+查看所有环境 conda env list  
+激活和退出conda activate  环境名	conda deactivate
+创建环境 conda create -n normal_310 python=3.10   
+
+
+
+
+
+5
+conda activate 环境名     
+pip install pymupdf  安装
+conda install -c conda-forge pymupdf     conda安装
+python -c "import fitz; print('PyMuPDF 安装成功，版本：', fitz.VersionBind)"  查看版本

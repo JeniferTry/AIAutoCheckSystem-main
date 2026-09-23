@@ -1,0 +1,46 @@
+Python 脚本打包
+
+# 把 assets 整个文件夹打包进去
+pyinstaller -D main.py --add-data "assest:assest" --add-data "config.json;" 
+
+
+cmd 打包其他外部py
+pyinstaller -D data_augmentation_main.py ^
+--hidden-import geo_transform ^
+--hidden-import expand_annotation ^
+--hidden-import expand_image ^
+--hidden-import mix_stitch ^
+--hidden-import quality_degradation ^
+--hidden-import copy_paste ^
+--hidden-import draw_noise ^
+--hidden-import image_resizer ^
+--hidden-import annotation_calibrator ^
+--hidden-import cad_pixel_calculator
+
+
+powershell 打包其他外部py
+pyinstaller -D data_augmentation_main.py `
+--hidden-import geo_transform `
+--hidden-import expand_annotation `
+--hidden-import expand_image `
+--hidden-import mix_stitch `
+--hidden-import quality_degradation `
+--hidden-import copy_paste `
+--hidden-import draw_noise `
+--hidden-import image_resizer `
+--hidden-import annotation_calibrator `
+--hidden-import cad_pixel_calculator
+
+
+pyinstaller -D data_augmentation_main.py `
+--add-data "geo_transform.py;." `
+--add-data "mix_stitch.py;." `
+--add-data "quality_degradation.py;." `
+--add-data "copy_paste_.py;." `
+--add-data "mixPictureAndLabel.py;." `
+--add-data "expand_annotation.py;." `
+--add-data "expand_image.py;." `
+--add-data "draw_noise.py;." `
+--add-data "image_resizer.py;." `
+--add-data "annotation_calibrator.py;." `
+--add-data "cad_pixel_calculator.py;."

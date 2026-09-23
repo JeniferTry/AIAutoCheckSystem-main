@@ -1,0 +1,46 @@
+docker stop qwen35-lora-service 2>/dev/null || true
+docker rm qwen35-lora-service 2>/dev/null || true
+
+qwen35-lora-service：
+附加lora参数容器启动
+docker run -d   --name qwen35-lora-service   -p 8006:8006   -v /home/yxkj/data/wususu/CYDATA/models/Qwen3___5-35B-A3B:/workspace/work/basemodel   -v /home/yxkj/data/wususu/z_saves/wt_qwen3___5_35B_v1:/workspace/work/QLoRA   --runtime=nvidia   vllm/vllm-openai:cu130-nightly   /workspace/work/basemodel     --port 8006     --host 0.0.0.0     --enable-lora     --lora-modules qwen-lora=/workspace/work/QLoRA     --max-loras 1     --trust-remote-code     --max-model-len 81960     --gpu-memory-utilization 0.83     --max-num-seqs 4  --enable-tower-connector-lora  --safetensors-load-strategy=prefetch
+
+docker stop qwen35-lora-service 2>/dev/null || true
+docker rm qwen35-lora-service 2>/dev/null || true
+docker run -d   --name qwen35-lora-service   -p 8006:8006   -v /home/yxkj/data/wususu/CYDATA/models/Qwen3___5-9B:/workspace/work/basemodel   -v /home/yxkj/data/wususu/z_saves/WT_qwen3___5_9B_16_xy_v1:/workspace/work/QLoRA   --runtime=nvidia   vllm/vllm-openai:cu130-nightly   /workspace/work/basemodel     --port 8006     --host 0.0.0.0     --enable-lora     --lora-modules qwen-lora=/workspace/work/QLoRA     --max-loras 1     --trust-remote-code     --max-model-len 81960     --gpu-memory-utilization 0.78    --max-num-seqs 4  --enable-tower-connector-lora  --safetensors-load-strategy=prefetch
+
+
+
+合并后容器启动（未量化）
+docker run -d     --name qwen35-lora-service     -p 8006:8006     -v /home/yxkj/data/wususu/MergeModel/qwen3___5_35B_16_xy_v2_vit:/workspace/work/model     --runtime=nvidia     vllm/vllm-openai:cu130-nightly      /workspace/work/model     --served-model-name qwen-lora     --port 8006     --host 0.0.0.0     --trust-remote-code     --max-model-len 86016     --gpu-memory-utilization 0.89     --max-num-seqs 4     --enforce-eager     --generation-config vllm     --safetensors-load-strategy=prefetch     --mm-processor-kwargs '{"min_pixels": 3136, "max_pixels": 12845056}'
+
+docker stop qwen35-lora-service 2>/dev/null || true
+docker rm qwen35-lora-service 2>/dev/null || true
+docker run -d     --name qwen35-lora-service     -p 8006:8006     -v /home/yxkj/data/wususu/MergeModel/qwen3___5_9B_16_xy_v2:/workspace/work/model     --runtime=nvidia     vllm/vllm-openai:cu130-nightly      /workspace/work/model     --served-model-name qwen-lora     --port 8006     --host 0.0.0.0     --trust-remote-code     --max-model-len 102400     --gpu-memory-utilization 0.80     --max-num-seqs 4     --enforce-eager     --generation-config vllm     --safetensors-load-strategy=prefetch     --mm-processor-kwargs '{"min_pixels": 3136, "max_pixels": 12845056}'
+
+
+
+
+原模型启动
+
+
+lora 16Bit精度模型
+
+
+
+
+ht_unsloth 镜像 lab启动
+ docker run -d --name ht_unsloth -e JUPYTER_PASSWORD="yxkj@2026" -p 8888:8888 -p 8002:8000 -p8009:8009 -p 2222:22 -v /home/yxkj/data/wususu:/workspace/work --runtime=nvidia docker.1ms.run/unsloth/unsloth:latest
+
+
+llama.cpp  
+docker run -d --name qwen35-llama   -v  /home/yxkj/data/wususu/MergeModel_awq:/workspace/models   -p 8009:8009 --restart unless-stopped   --runtime=nvidia   --user root   ghcr.io/ggml-org/llama.cpp:server-cuda    -m /workspace/models/qwen3-35b-moe-Q8_0-v2.gguf   --mmproj    /workspace/models/mmproj-qwen3-35b-moe-f16_mmproj.gguf   --host 0.0.0.0 --port 8009   -ngl 90 -c 81920 --flash-attn on -t 24  -lv 5   --image-min-tokens  2048  --image-max-tokens  10240 --parallel 4 --timeout 1200 --cont-batching
+
+
+ht_GGUF:
+docker run -d --name ht_GGUF -p 8007:8006 -v /home/yxkj/data/wususu:/workspace/work --runtime=nvidia docker.1ms.run/unsloth/unsloth:latest
+ht_lianghua 同上
+
+
+ht_llama
+ docker run -it --name ht_llama --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=0 -e NVIDIA_DRIVER_CAPABILITIES=compute,utility -v /home/yxkj/data/wusus:/work ghcr.io/ggml-org/llama.cpp:server-cuda

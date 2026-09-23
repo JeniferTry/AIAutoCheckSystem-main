@@ -1,0 +1,39 @@
+1、查找进程、杀死进程
+# 列出全部进程
+tasklist
+
+# 过滤查找指定进程（示例查找chrome）
+tasklist | findstr chrome
+
+/F = 强制终止（卡死无响应必须加）
+/T = 连带子进程一起杀掉（浏览器、软件很常用）
+/PID：按进程 ID 杀（只杀这一个）
+/IM：按程序名杀（同名所有进程全部关闭）
+
+# 强制关闭所有记事本
+taskkill /F /IM notepad.exe
+
+# 强制关闭所有chrome，连同子进程
+taskkill /F /T /IM chrome.exe
+
+按 PID 杀死（精准单个进程）
+taskkill /F /PID 12480
+
+2、git 拉取等
+# 先初始化git lfs（只需要执行一次）
+git lfs install
+# 克隆到自定义路径，示例：D:\AI_Model\LevelField
+git clone https://www.modelscope.cn/level-ai/LevelField.git D:\AI_Model\LevelField
+
+#跳过大文件只拉取配置文件
+:: 1. 设置临时环境变量（当前窗口生效） set GIT_LFS_SKIP_SMUDGE=1  
+:: 2. 执行克隆  git clone https://www.modelscope.cn/level-ai/LevelField.git D:\ProgramData\modelScopeModels\models
+
+
+3、运行x-anylabeling
+git clone https://github.com/CVHub520/X-AnyLabeling.git  第一次拉取或者后面更新
+cd X-AnyLabeling
+pip install -r requirements.txt
+python anylabeling/app.py
+
+4.P

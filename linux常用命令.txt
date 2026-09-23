@@ -1,0 +1,54 @@
+1、ls 列出当前目录中的文件和子目录
+2、pwd：显示当前工作目录的路径
+3、cd：切换工作目录
+4. mkdir：创建新目录
+mkdir directory_name
+5. rmdir：删除空目录
+rmdir directory_name
+
+6. rm：删除文件或目录
+rm file_name
+rm -r directory_name  # 递归删除目录及其内容
+
+7. cp：复制文件或目录
+cp source_file destination
+cp -r source_directory destination  # 递归复制目录及其内容
+
+8. mv：移动或重命名文件或目录
+mv old_name new_name
+
+9.touch：创建空文件或更新文件的时间戳
+touch file_name
+
+10. cat：连接和显示文件内容
+cat file_name
+
+11. more/less：逐页显示文本文件内容
+more file_name
+less file_name
+
+12. head/tail：显示文件的前几行或后几行
+head -n 10 file_name  # 显示文件的前10行
+tail -n 20 file_name  # 显示文件的后20行
+
+13. grep ：在文件中搜索指定文本
+grep search_term file_name
+
+14. ps：显示当前运行的进程
+ps aux
+
+
+
+
+
+
+
+
+
+
+
+30  指定 conda 环境  执行  源码
+conda run -n sam3 python docker_mount_test.py
+
+31、容器内查找文件
+find / -name "sam3*.pt" -o -name "sam3*.safetensors" -o -name "model.safetensors" 2>/dev/null
